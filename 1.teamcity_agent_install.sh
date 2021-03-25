@@ -9,6 +9,7 @@ sudo npm -y install -g yarn
 npm update -g @angular/cli
 sudo chown -R ubuntu /home/
 
+#Створюємо сервіс для автоматичного запуску TeamCity 
 sudo touch /etc/systemd/system/teamcity_agent.service
 sudo -su
 sudo cat <<EOF >> /etc/systemd/system/teamcity_agent.service
@@ -32,10 +33,10 @@ SuccessExitStatus=0 143
 WantedBy=multi-user.target
 EOF
 exit
-#sudo chmod 744 /home/ubuntu/TeamCity_agent/bin/agent.sh
+
+sudo chown -R ubuntu /home/ubuntu/TeamCity_agent # Даємо права користувачу ubuntu на директорії
 sudo chmod 644 /etc/systemd/system/teamcity_agent.service
 sudo systemctl daemon-reload
 sudo systemctl enable teamcity_agent.service
 sudo chown -R ubuntu /home/ubuntu/
-sudo chown -R ubuntu /home/ubuntu/teamcity
 sudo systemctl restart teamcity_agent
