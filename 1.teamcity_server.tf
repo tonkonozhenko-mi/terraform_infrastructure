@@ -2,14 +2,14 @@ resource "aws_instance" "teamcity_server" {
   ami                         = var.aws_instance_ami # Ubuntu 20.4
   instance_type               = var.aws_instance_type_teamcity_server # Тип серверу
   key_name                    = "ssh-key"
-  vpc_security_group_ids      = [aws_security_group.teamcity_server.id] # Група безпеки де вказуємо відкриті порти
+  vpc_security_group_ids      = [aws_security_group.teamcity_server.id] 
   subnet_id                   = aws_subnet.eSchool_public.id # публічна підмережа
-  private_ip                  = var.aws_instance_public_ip_TeamCity  #Прив'язуємо сервер до публичної підмережі
+  private_ip                  = var.aws_instance_public_ip_TeamCity
   associate_public_ip_address = true
   tags = {
     Name = "TeamCity Server"
   }
-# Передаємо файл з скриптом на віддалений сервер і там запускаємо його
+
   provisioner "file" {
     source      = "D:/SoftServe/Terraform_experiment/Eschool/inf/1.teamcity_install.sh"
     destination = "/home/ubuntu/teamcity_install.sh"
@@ -61,7 +61,6 @@ resource "aws_instance" "teamcity_agent" {
     host        = self.public_ip
   }
 }
-# Даємо цьому серверу elastic ip
 resource "aws_eip" "teamcity_server" { 
   vpc      = true
 	instance = aws_instance.teamcity_server.id

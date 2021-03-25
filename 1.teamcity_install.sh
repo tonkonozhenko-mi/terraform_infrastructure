@@ -12,7 +12,6 @@ sudo chown -R ubuntu /var/ubuntu
 sudo wget -O teamCity.tar.gz https://download.jetbrains.com/teamcity/TeamCity-2020.2.2.tar.gz?_ga=2.175301669.60879802.1613028860-1795692882.1612763354
 sudo tar zxf teamCity.tar.gz -C /home/ubuntu/teamcity --strip-components 1
 
-#Створюємо сервіс для автоматичного запуску TeamCity
 sudo touch /etc/systemd/system/teamcity.service
 sudo -su
 sudo cat <<EOF >> /etc/systemd/system/teamcity.service

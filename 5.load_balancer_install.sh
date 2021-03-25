@@ -2,8 +2,6 @@
 sudo apt -y update
 sudo apt -y install mc
 sudo apt -y install apache2
-
-# Створюємо конфігурацію load balancera щоб він міг перенаправляти запити між двома бекенд серверами
 sudo cat <<EOF >> /etc/apache2/sites-enabled/000-default.conf
 <VirtualHost *:8080>
 <Location "/balancer-manager">
@@ -21,12 +19,9 @@ ProxyPassReverse / balancer://eschool
 </VirtualHost>
 EOF
 
-# В конфігурації веб-сервера вказуємо його ім'я як глобальна адреса, замість localhost
 sudo cat <<EOF >> /etc/apache2/apache2.conf
 ServerName 3.143.71.85
 EOF
-
-# Змінюємо порт в конфігурації веб-серверу, на який в подальшому ми будемо звертатись.
 sed -i 's/80/8080/' /etc/apache2/ports.conf
 
 sudo a2enmod proxy

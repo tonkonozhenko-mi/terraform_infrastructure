@@ -13,7 +13,7 @@ resource "aws_instance" "backend_server_1" {
 }
 
 resource "aws_instance" "backend_server_2" {
-  ami                         = var.aws_instance_ami # Ubuntu 20.4
+  ami                         = "ami-08962a4068733a2b6" # Ubuntu 20.4
   instance_type               = "t2.micro"
   key_name                    = "ssh-key"
   user_data                   = file("3.backend_install.sh")
